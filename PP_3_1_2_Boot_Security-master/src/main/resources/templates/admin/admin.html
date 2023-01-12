@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+
+<div th:each="users : ${user}">
+  <a th:href="@{/admin/{id}(id = ${users.getId()})}" th:text="${users.getUsername() + ', ' + users.getAge() + ',' + users.getAuthorities()}">Name</a>
+</div>
+
+<br/>
+<a href="/admin/new">Создание нового пользователя</a>
+
+</body>
+</html>

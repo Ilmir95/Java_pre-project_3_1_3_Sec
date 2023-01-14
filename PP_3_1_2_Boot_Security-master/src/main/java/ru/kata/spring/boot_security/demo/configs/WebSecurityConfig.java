@@ -31,12 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .antMatchers("login").permitAll()
-                .anyRequest().authenticated();
-        http
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
                 .successHandler(successUserHandler)
-                .permitAll();
-        http
+                .permitAll().
+                and()
                 .logout()
                 .permitAll();
     }

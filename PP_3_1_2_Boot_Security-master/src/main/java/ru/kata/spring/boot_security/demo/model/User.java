@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email should be valid")
     private String email;
-    @Column
+    @Column(name = "username")
     @NotEmpty(message = "Username should not be empty")
     private String username;
 

@@ -6,19 +6,23 @@
     <title>Пользователь</title>
 </head>
 <body>
-<h1 th:text="${user.username}">Username</h1>
+<h1 th:text="${user.name}">Username</h1>
 <table>
     <tr>
         <th>Username</th>
         <th>Surname</th>
         <th>Age</th>
         <th>Email</th>
+        <th>Username</th>
+        <th>Password</th>
     </tr>
     <tr>
-        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getName()}"></td>
         <td th:text="${user.getSurname()}"></td>
         <td th:text="${user.getAge()}"></td>
         <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getUsername()}"></td>
+        <td th:text="${user.getPassword()}"></td>
         <td>
             <th:block th:each="role: ${user.roles}"
                       th:text="${role.name} + ' '"></th:block>

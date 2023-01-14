@@ -20,7 +20,7 @@ public class UserController {
     }
     @GetMapping()
     public String getShowForm(Model model, Principal principal) {
-        model.addAttribute("user",  userService.getUserByUsername(principal.getName()));
+        model.addAttribute("user",  userService.findUserByUsername(principal.getName()));
         return "user/show";
     }
 

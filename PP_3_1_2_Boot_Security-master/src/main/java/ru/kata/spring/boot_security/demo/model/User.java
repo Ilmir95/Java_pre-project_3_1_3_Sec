@@ -1,8 +1,6 @@
 package ru.kata.spring.boot_security.demo.model;
 
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -41,17 +39,17 @@ public class User implements UserDetails {
 
     @Column(name = "password")
     @NotEmpty(message = "Password should not be empty")
-    @Size(min = 6, max = 30, message = "Name should be between 6 and 30 characters")
+    @Size(min = 6, message = "Name should be between 6 characters")
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
-    @Fetch(FetchMode.JOIN)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
     public User() {
     }
+
 
     public User(String name, String surname, int age, String email, String username, String password, Set<Role> roles) {
         this.name = name;
@@ -110,6 +108,7 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }

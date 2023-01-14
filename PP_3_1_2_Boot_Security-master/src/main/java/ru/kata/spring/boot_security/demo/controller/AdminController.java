@@ -5,21 +5,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
-    @GetMapping("/")
+    @GetMapping()
     public String getAllUsersForm(Model model) {
         model.addAttribute("user", userService.getAllUsers());
         return "admin/admin";
@@ -27,12 +32,13 @@ public class AdminController {
 
     @GetMapping("/{id}")
     public String getShowForm(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("user", userService.getUser(id));
         return "admin/show";
     }
 
     @GetMapping("/new")
-    public String getUserCreationForm(@ModelAttribute("user")User user) {
+    public String getUserCreationForm(@ModelAttribute("user")User user, Model model) {
+        model.addAttribute("roles", roleService.getAllRoles());
         return "admin/new";
     }
 
@@ -41,14 +47,15 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "admin/new";
         } else {
-            userService.saveUser(user);
-            return "redirect:/";
+            userService.createNewUser(user);
+            return "redirect:/admin";
         }
     }
 
     @GetMapping("/edit/{id}")
     public String getUserEditionForm(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("roles", roleService.getAllRoles());
         return "admin/edit";
     }
 
@@ -58,13 +65,13 @@ public class AdminController {
             return "admin/edit";
         } else {
             userService.updateUser(user);
-            return "redirect:/";
+            return "redirect:/admin";
         }
     }
 
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id) {
-        userService.removeUserById(id);
-        return "redirect:/";
+        userService.deleteUser(id);
+        return "redirect:/admin";
     }
 }

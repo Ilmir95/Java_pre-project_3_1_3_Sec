@@ -8,11 +8,15 @@
 <body>
 
 <div th:each="users : ${user}">
-  <a th:href="@{/admin/{id}(id = ${users.getId()})}" th:text="${users.getUsername() + ', ' + users.getAge() + ',' + users.getAuthorities()}">Name</a>
+    <a th:href="@{/admin/{id}(id = ${users.getId()})}"
+       th:text="${users.getUsername() + ', ' + users.getAge() + ',' + users.getAuthorities()}">Name</a>
 </div>
 
 <br/>
 <a href="/admin/new">Создание нового пользователя</a>
-
+<br/>
+<form th:method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
 </body>
 </html>

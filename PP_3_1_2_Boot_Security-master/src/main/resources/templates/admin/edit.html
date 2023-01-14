@@ -25,9 +25,10 @@
     <input type="text" th:field="*{email}" id="email"/>
     <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
     <br/>
-    <label for="roles">Введите roles: </label>
-    <input type="checkbox" th:field="*{roles}" id="roles"/>
-    <br/>
+    <label for="role">Введите roles: </label>
+    <select id="role" th:field="*{roles}" multiple>
+        <option th:each="role:${roles}" th:value="${{role}}" th:text="${role.rolename}"/>
+    </select>    <br/>
     <input type="submit" value="Обновить!"/>
 </form>
 

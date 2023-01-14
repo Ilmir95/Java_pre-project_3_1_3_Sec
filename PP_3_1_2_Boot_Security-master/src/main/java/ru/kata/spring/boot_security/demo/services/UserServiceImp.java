@@ -15,9 +15,10 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserServiceImp implements UserService, UserDetailsService {
+public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -75,4 +76,5 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public User findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
 }

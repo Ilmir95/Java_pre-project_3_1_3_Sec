@@ -115,17 +115,13 @@ public class User implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && age == user.age && Objects.equals(name, user.name)
-                && Objects.equals(surname, user.surname) && Objects.equals(email, user.email)
-                && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
+        return id == user.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, age, email, password, roles);
+        return Objects.hash(id);
     }
 
     @Override

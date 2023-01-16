@@ -15,7 +15,6 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {

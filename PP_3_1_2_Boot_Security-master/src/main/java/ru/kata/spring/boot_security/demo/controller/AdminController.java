@@ -37,12 +37,12 @@ public class AdminController {
     }
 
     @GetMapping("/new")
-    public String getUserCreationForm(@ModelAttribute("user")User user, Model model) {
+    public String getUserCreationForm(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin/new";
     }
 
-    @PostMapping("/")
+    @PostMapping
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/new";
@@ -53,7 +53,7 @@ public class AdminController {
     }
 
     @GetMapping("/edit/{id}")
-    public String getUserEditionForm(Model model, @PathVariable("id") int id) {
+    public String getUserEditionForm(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin/edit";
@@ -69,7 +69,7 @@ public class AdminController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "redirect:/admin";
